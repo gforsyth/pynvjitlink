@@ -1,8 +1,8 @@
-# Copyright (c) 2023-2025, NVIDIA CORPORATION.
+# Copyright (c) 2023-2026, NVIDIA CORPORATION.
+import importlib.util
 import os
 import pathlib
 from functools import partial
-import importlib.util
 
 from pynvjitlink.api import NvJitLinker, NvJitLinkError
 
@@ -51,15 +51,15 @@ else:
 spec = importlib.util.find_spec("numba_cuda")
 if spec is not None:
     _numba_cuda_in_use = True
-    _numba_cuda_error = "`numba_cuda` includes patches from pynvjitlink, so no further patches are needed. "
+    _numba_cuda_error = "`numba_cuda` includes patches from pynvjitlink, so no further patches are needed. "  # noqa: E501
 
     import numba_cuda
 
     numba_cuda_ver = tuple(int(x) for x in numba_cuda.__version__.split("."))
     if numba_cuda_ver < (0, 2, 0):
-        suggestion = "Instead, use NUMBA_CUDA_ENABLE_PYNVJITLINK environment variable to enable pynvjitlink features."
+        suggestion = "Instead, use NUMBA_CUDA_ENABLE_PYNVJITLINK environment variable to enable pynvjitlink features."  # noqa: E501
     else:
-        suggestion = "Instead, use config.CUDA_ENABLE_PYNVJITLINK option to enable pynvjitlink features."
+        suggestion = "Instead, use config.CUDA_ENABLE_PYNVJITLINK option to enable pynvjitlink features."  # noqa: E501
 
     _numba_cuda_error += suggestion
 else:
